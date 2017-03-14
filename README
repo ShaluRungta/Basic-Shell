@@ -1,0 +1,86 @@
+﻿Instructions to build:
+The shell_final.c file has been added to the Makefile. Enter 'make' command in terminal to run the program.
+------------------------------------
+Team Menbers:
+1. Sarthak Agarwal (140123031)
+2. Sambhav Kumar Dash (140101088)
+3. Shalu Rungta (140123033)
+4. Shivam Singla (140123035)
+-----------------------------------
+Overview of the Project:
+In this assignment, We have implemented a basic shell interface that provides the user a prompt after which he types in a command, and the shell creates a separate child process using the fork() system call, that executes the command.The shell created executes the following commands: history, hc (clears history), !!(executes the most recent command), !( ! followed by an integer n, executes the nth command in the history), I/O redirection and pipes.After execution, it prompts for more user inputs until the user enters exit at the prompt.
+----------------------------------------
+Contribution of each Member:
+Sarthak Agarwal : task of piping
+
+Sambhav Kumar Dash: file redirection
+
+Shalu Rungta: history
+
+Shivam Singla: basic execution, debugging, README and makefile.
+-----------------------------------------
+Explanation of the code:
+Implementation of the shell:
+
+parse():
+It parses the input and separates it using space as the separator.
+
+execn():
+It returns the nth history command for the execution of !.
+
+
+Piping:
+
+Infinite piping has been implemented. The user may insert a space character before or after the pipe.
+
+separate_piped_commands():
+This command takes the argument and separate it into multiple commands with command separator as pipe ('|').
+
+execute():
+it executes the piped commands one by one using fork() and dup2() system calls.
+
+iter_pipes():
+It calls the execute() one by one for each of the commands separated by '|'. All normal commands are also executed using iter_pipes() by passing num_pipes=1.
+
+
+History:
+
+history():
+It allows the user to access the most recently entered commands.  
+clear_history():
+it clears the history.
+
+
+File Redirection:
+
+File redirection has been implemented in both directions (> and <). Only one < or > is allowed. For multiple inputs use  command like 
+ls < input1 input2 
+But only one output file is allowed and it should come after the input files.
+ls < input1 input2 > output         //allowed
+ls < output >input                  // not allowed
+In case of syntax errors, no output is shown.
+
+isredir():
+It checks if there is a redirection in the given input and returns a string having commands along with the input files.
+
+execredir():
+It executes the command returned by isredir() using dup2(), fork(),execvp() system call.
+
+------------------------------
+Bugs:
+
+Once the shell is closed, history is deleted.
+We are using gets() to take the input which gives a warning but doesn't affect the output of the program.
+Cannot use !! ,!, history, redirection using pipes.
+Empty command is saved in history.
+
+
+
+
+
+
+
+
+
+
+
